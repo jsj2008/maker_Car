@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ACloudLib.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [ACloudLib setMode:ACLoudLibModeTest
+                Region:ACLoudLibRegionChina];
+    
+    [ACloudLib setMajorDomain:@"wuhanxl" majorDomainId:5287];
+
+    
+    
     return YES;
 }
 
