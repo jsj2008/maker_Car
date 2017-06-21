@@ -74,6 +74,7 @@
         rippe.backgroundColor = [UIColor clearColor];
         rippe.layer.borderColor = [UIColor whiteColor].CGColor;
         rippe.layer.borderWidth =  1;
+        rippe.tag = 10000+i;
         [rippe setTitle:title[i] forState:0];
         [rippe addTarget:self action:@selector(Getmeesage:) forControlEvents:UIControlEventTouchUpInside];
         rippe.titleLabel.textColor = [UIColor whiteColor];
@@ -82,6 +83,7 @@
     
     StepSlider *sl = [[StepSlider alloc]initWithFrame:CGRectMake(160, 30, 180, 20)];
     sl.maxCount = 3;
+    sl.index = 1;
     [sl addTarget:self action:@selector(GearChange:) forControlEvents:UIControlEventTouchUpInside];
     sl.labels = @[@"第一档",@"第二档",@"第三档"];
     sl.labelColor = [UIColor whiteColor];
@@ -117,13 +119,13 @@
     stp.leftButtonText = @"-";
     stp.rightButtonText = @"+";
     stp.maximumValue = 3;
-    stp.value = 1;
+    stp.value = 0;
     [stp addTarget:self action:@selector(StepChange:) forControlEvents:UIControlEventValueChanged];
     [self.thermo addSubview:stp];
     
     self.currentTemp = [[UILabel alloc]initWithFrame:CGRectMake(self.thermo.frame.size.width - 120, 20, 100, 100)];
     self.currentTemp.textColor = [UIColor whiteColor];
-    self.currentTemp.font = [UIFont systemFontOfSize:45];
+    self.currentTemp.font = [UIFont systemFontOfSize:35];
     
     self.currentTemp.textAlignment = NSTextAlignmentCenter;
     [self.thermo addSubview:self.currentTemp];
@@ -180,7 +182,7 @@
     
     self.currentDistance = [[UILabel alloc]initWithFrame:CGRectMake(self.distance.frame.size.width - 120, 20, 100, 100)];
     self.currentDistance.textColor = [UIColor whiteColor];
-    self.currentDistance.font = [UIFont systemFontOfSize:45];
+    self.currentDistance.font = [UIFont systemFontOfSize:35];
     
     self.currentDistance.textAlignment = NSTextAlignmentCenter;
     [self.distance addSubview:self.currentDistance];
@@ -207,7 +209,7 @@
     CustomSwitch *led2 = [[CustomSwitch alloc]initWithFrame:CGRectMake(120, 70, 80, 30)];
     led2.isOn = false;
     [led2 addTarget:self action:@selector(SwitchUnitChange:) forControlEvents:UIControlEventValueChanged];
-    led2.tag = 100003;
+    led2.tag = 100004;
     [self.LED addSubview:led2];
     
     
@@ -222,25 +224,44 @@
     }];
     
     [ACCustomDataManager setCustomMessageHandler:^(NSString *subDomain, NSString *type, NSString *key, ACObject *payload) {
-        NSArray *payarr = [payload get:@"payload"];
-        NSData* decodeData = [[NSData alloc] initWithBase64EncodedString:payarr[0] options:0];
+        NSArray *payArr = [payload get:@"payload"];
+        
+        NSData* decodeData = [[NSData alloc] initWithBase64EncodedString:payArr[0] options:0];
+        
+        NSLog(@"接受的数据长度 %ld",decodeData.length);
         if (decodeData.length == 5) {
-            if ([[decodeData.description substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"c2"]) {
-                NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(4, 4)] UTF8String], 0, 16)/10];
-                CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(4, 4)] UTF8String], 0, 16)/10;
+            if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c2"]) {
+                NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10];
+                CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10;
                 self.currentTemp.text = temp;
                 [self.element addObject:@(flo)];
                 [self.line reloadData];
 
-                self.line.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width, 0);
-            }else if ([[decodeData.description substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"c3"]){
+                self.line.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width + 20, 0);
+            }else if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c3"]){
                 NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(4, 4)] UTF8String], 0, 16)/10];
-                CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(4, 4)] UTF8String], 0, 16)/10;
+                CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/100;
                 self.currentDistance.text = temp;
                 [self.distances addObject:@(flo)];
                 [self.distancechart reloadData];
                 self.distancechart.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width, 0);
             }
+        }else if (decodeData.length == 10){
+            NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10];
+            CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10;
+            self.currentTemp.text = temp;
+            [self.element addObject:@(flo)];
+            [self.line reloadData];
+            
+            self.line.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width + 20, 0);
+            
+            NSString *temp1 = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(16, 4)] UTF8String], 0, 16)/10];
+            CGFloat flo1 = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(16, 4)] UTF8String], 0, 16)/10;
+            self.currentDistance.text = temp1;
+            [self.distances addObject:@(flo1)];
+            [self.distancechart reloadData];
+            
+            self.distancechart.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width + 20, 0);
         }
     }];
     
@@ -268,10 +289,13 @@
         }
     }else if (sender.tag == 100002){
         if (sender.isOn == true) {
+            NSLog(@"打开距离上传");
             [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"80"];
             [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"02"];
             [self SenMesage:self.currentMsg];
         }else{
+            NSLog(@"关闭距离上传");
+
             [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"08"];
             [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"00"];
             [self SenMesage:self.currentMsg];
@@ -340,15 +364,19 @@
 }
 
 -(void)Getmeesage:(UIButton *)sender{
-    if (sender.tag == 10001) {
+    if (sender.tag == 10000) {
         [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"ffffffff"];
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"01"];
         [self SenMesage:self.currentMsg];
 
-    }else if(sender.tag == 10002){
+    }else if(sender.tag == 10001){
         [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"00000000"];
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"01"];
+
         [self SenMesage:self.currentMsg];
     }else{
         [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"80808080"];
+
         [self SenMesage:self.currentMsg];
 
     }
@@ -359,10 +387,10 @@
     ACDeviceMsg *msg = [[ACDeviceMsg alloc]initWithCode:89 binaryData:data];
     [ACBindManager sendToDeviceWithOption:ACDeviceCommunicationOptionOnlyCloud SubDomain:@"xinlian01" physicalDeviceId:self.physicalDeviceId msg:msg callback:^(ACDeviceMsg *responseMsg, NSError *error) {
         if (!error) {
+            NSLog(@"发送消息 %@",packge);
             NSString *s = [[NSString alloc]initWithData:responseMsg.payload encoding:NSUTF8StringEncoding];
             if (s != nil) {
             }else{
-                
             }
         }else{
             NSLog(@"%@",error.localizedDescription);
