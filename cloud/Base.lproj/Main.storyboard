@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J20-cR-b0a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J20-cR-b0a">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Register View Controller-->
@@ -22,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="A4b-he-I3l" firstAttribute="top" secondItem="v29-KI-xIx" secondAttribute="bottom" constant="-20" id="EqY-8t-puk"/>
                             <constraint firstAttribute="trailing" secondItem="A4b-he-I3l" secondAttribute="trailing" id="NWM-Fj-c7m"/>
@@ -30,7 +33,6 @@
                             <constraint firstItem="A4b-he-I3l" firstAttribute="leading" secondItem="1Ni-zx-H6Q" secondAttribute="leading" id="dYr-S8-hoy"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mg1-7r-fEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,9 +49,8 @@
                     <view key="view" contentMode="scaleToFill" id="8iD-Vd-Ira">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWu-bj-3KM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -60,7 +61,6 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J20-cR-b0a" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ujF-Pd-sgQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -90,7 +90,7 @@
                                 <rect key="frame" x="0.0" y="44" width="768" height="980"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BLI-dk-9v6" firstAttribute="top" secondItem="8vV-He-p5D" secondAttribute="bottom" id="4al-Aw-LUf"/>
                             <constraint firstItem="8vV-He-p5D" firstAttribute="top" secondItem="Wx9-4d-ckP" secondAttribute="bottom" constant="-20" id="D3a-eo-BFJ"/>
@@ -99,7 +99,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7eL-xz-Qa2"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="back" destination="8vV-He-p5D" id="5YG-gn-fuW"/>
                     </connections>

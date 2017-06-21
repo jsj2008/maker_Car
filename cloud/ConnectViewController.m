@@ -23,7 +23,6 @@ static NSString *kWifiLinkAI6060Name = @"AI6060"; //AI6060基于swift版本的�
 @property(nonatomic,strong)UILabel *le2;
 @property(nonatomic,strong)UITextField *li;
 @property(nonatomic,strong)UITextField *li2;
-@property(nonatomic,strong)wController *ai6060;
 @property(nonatomic, copy) NSDictionary *modes;
 @property(nonatomic,strong)ACLocalDevice *device;
 @end

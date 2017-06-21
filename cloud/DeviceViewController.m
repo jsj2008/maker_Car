@@ -10,7 +10,6 @@
 #import "ACloudLib.h"
 #import "ACWifiLinkManager.h"
 #import "lineTextFeild.h"
-#import "AI6060-Swift.h"
 #import "UserDefaultUtils.h"
 #import "SVProgressHUD.h"
 #import "ACLocalDevice.h"
@@ -22,10 +21,10 @@
 #import "ACKeyChain.h"
 #import "ACMsg.h"
 #import "MessageViewController.h"
+#import "XLAI6060.h"
 @interface DeviceViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *list;
 @property(nonatomic,strong)NSMutableArray<ACLocalDevice *> *devices;
-@property(nonatomic,strong)wController *ai6060;
 @property(nonatomic,strong)ACLocalDevice *device;
 @property(nonatomic,strong)ACUserDevice *listparmter;
 @property(nonatomic,strong)NSMutableArray<ACLocalDevice *> *LocalDevices;
@@ -141,55 +140,49 @@
 //ejzbsklixe@qq.com
 
 -(void)BtnClick:(UIButton *)sender{
-    UIStoryboard *s = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MessageViewController *mess = [s instantiateViewControllerWithIdentifier:@"mess"];
-    [self addChildViewController:mess];
-    mess.view.frame = self.view.frame;
-    [self.view addSubview:mess.view];
-    [mess didMoveToParentViewController:self];
-//    UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"输入WiFi密码" message:[ACWifiLinkManager getCurrentSSID] preferredStyle:1];
-//    self.tex = [[UITextField alloc]init];
-//    [aler addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//        self.tex = textField;
-//        self.tex.secureTextEntry = YES;
-//    }];
-//    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        ACWifiLinkManager *manager = [[ACWifiLinkManager alloc]
-//                                      initWithLinkerName:@""];
-//        // AI6060基于swift版本的配网协议 注：不包含于SDK当中
-//        _ai6060 ? nil : (_ai6060 = [[wController alloc] init]);
-//        [_ai6060 viewDidLoad];
-//        _ai6060.passText.text = self.tex.text;
-//        //开始
-//        [_ai6060 pressed:UIButton.new];
-//        NSLog(@"%@",self.tex.text);
-//            [manager sendWifiInfo:[ACWifiLinkManager getCurrentSSID] password:_tex.text timeout:60 callback:^(NSArray *localDevices, NSError *error) {
-//                NSLog(@"localDevices = %@",localDevices);
-//                if (error) {
-//                    [SVProgressHUD showErrorWithStatus:@"配网超时"];
-//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                        [SVProgressHUD dismiss];
-//                    });
-//                }else{
-//                    [manager stopWifiLink];
-//                    self.device = [localDevices firstObject];
-//                    [self UpdateDeviceList:self.device];
-//                    [SVProgressHUD showSuccessWithStatus:@"配网成功!"];
-//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                        [SVProgressHUD dismiss];
-//                        UIButton *btn = [self.view viewWithTag:10004];
-//                        btn.enabled = false;
-//                    });
-//                }
-//            }];
-//    }];
-//    
-//    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-//    
-//    [aler addAction:action];
-//    [aler addAction:action1];
-//    
-//    [self presentViewController:aler animated:YES completion:nil];
+    
+    UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"输入WiFi密码" message:[ACWifiLinkManager getCurrentSSID] preferredStyle:1];
+    self.tex = [[UITextField alloc]init];
+    [aler addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        self.tex = textField;
+        self.tex.secureTextEntry = YES;
+    }];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ACWifiLinkManager *manager = [[ACWifiLinkManager alloc]
+                                      initWithLinkerName:@""];
+        // AI6060基于swift版本的配网协议 注：不包含于SDK当中
+        XLAI6060 *ai = [[XLAI6060 alloc]init];
+        ai.passText = self.tex.text;
+        [ai setUp];
+        [ai config];
+        
+            [manager sendWifiInfo:[ACWifiLinkManager getCurrentSSID] password:_tex.text timeout:60 callback:^(NSArray *localDevices, NSError *error) {
+                NSLog(@"localDevices = %@",localDevices);
+                if (error) {
+                    [SVProgressHUD showErrorWithStatus:@"配网超时"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [SVProgressHUD dismiss];
+                    });
+                }else{
+                    [manager stopWifiLink];
+                    self.device = [localDevices firstObject];
+                    [self UpdateDeviceList:self.device];
+                    [SVProgressHUD showSuccessWithStatus:@"配网成功!"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [SVProgressHUD dismiss];
+                        UIButton *btn = [self.view viewWithTag:10004];
+                        btn.enabled = false;
+                    });
+                }
+            }];
+    }];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [aler addAction:action];
+    [aler addAction:action1];
+    
+    [self presentViewController:aler animated:YES completion:nil];
 
 }
 
@@ -327,6 +320,7 @@
         MessageViewController *mess = [s instantiateViewControllerWithIdentifier:@"mess"];
         mess.physicalDeviceId = [self.BindDevices[indexPath.row] physicalDeviceId];
         [self addChildViewController:mess];
+        mess.deviceid = [NSString stringWithFormat:@"%ld",[self.BindDevices[indexPath.row]deviceId]];
         mess.view.frame = self.view.frame;
         [self.view addSubview:mess.view];
         [mess didMoveToParentViewController:self];

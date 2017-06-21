@@ -15,7 +15,6 @@
     NSInteger dataLen = [self payload:contentStr withLen:length];
     //255 - data之和 ＋ 1
     NSInteger  jsLen = 255 - dataLen + 1;
-    NSLog(@"jsLen = %ld", jsLen);
     NSString *binaryString = [[NSString alloc]init];
     NSString *hexString = [[NSString alloc]init];
     if (jsLen >= 0) {
@@ -24,6 +23,7 @@
     }
     if (jsLen < 0) {
         jsLen = labs(jsLen);
+
         binaryString = [self toBinarySystemWithDecimalSystem1:jsLen];
         hexString = [self getBinaryByhex:binaryString];
         if (hexString.length > 2) {
@@ -39,16 +39,20 @@
 //负数十进制转换成二进制
 - (NSString *)toBinarySystemWithDecimalSystem1:(NSInteger)decimal
 {
-    NSInteger num = decimal;//[decimal intValue];
+    
+    NSLog(@"Decimal = %ld",decimal);
+    NSInteger num = 1;//[decimal intValue];
     NSInteger remainder = 0; //余数
     NSInteger divisor = 0; //除数
     NSString * prepare = @"";
     
     while (true)
     {
+        NSLog(@"%ld",(long)num);
         remainder = num%2;
         divisor = num/2;
         num = divisor;
+        NSLog(@"");
         prepare = [prepare stringByAppendingFormat:@"%ld",remainder];
         
         if (divisor == 0)
@@ -56,10 +60,10 @@
             break;
         }
     }
-    
     NSString * result = @"";
     for (NSInteger i = prepare.length - 1; i >= 0; i--)
     {
+        NSLog(@"i = %ld",i);
         result = [result stringByAppendingFormat:@"%@",
                   [prepare substringWithRange:NSMakeRange(i , 1)]];
     }
@@ -98,6 +102,7 @@
             qfString = [qfString stringByAppendingString:@"0"];
         }
     }
+    NSLog(@"qfstring = %@",qfString);
     if (qfString.length == 7) {
         qfString = [NSString stringWithFormat:@"1%@", qfString];
     }    //+1
@@ -108,6 +113,7 @@
         NSString *myString = [qfString substringWithRange:NSMakeRange(0, j)];
         if ([eveString isEqualToString:@"0"]) {
             pjString = [NSString stringWithFormat:@"1%@",pjString];
+            NSLog(@"pj = %@",pjString);
             hxString = [myString stringByAppendingString:pjString];
             break;
         }
@@ -115,7 +121,7 @@
             pjString = [NSString stringWithFormat:@"0%@",pjString];
         }
     }
-
+    NSLog(@"hxstr = %@",hxString);
     /////
     if (hxString.length%4 == 0) {
         hxString = [NSString stringWithFormat:@"0001%@", hxString];
@@ -200,8 +206,11 @@
     [hexDic setObject:@"E" forKey:@"1110"];
     [hexDic setObject:@"F" forKey:@"1111"];
     NSMutableString *binaryString = [[NSMutableString alloc]init];
+    NSLog(@"hex = %@  length = %ld",hex,hex.length);
     for (int i = 0; i < hex.length/4; i++) {
+        
         NSString *key = [hex substringWithRange:NSMakeRange(4*i, 4)];
+        NSLog(@"key = %@",key) ;
         binaryString = [NSMutableString stringWithFormat:@"%@%@",binaryString,[NSString stringWithFormat:@"%@",[hexDic objectForKey:key]]];
     }
     return binaryString;
@@ -215,6 +224,7 @@
         resiveLen += len;
     }
     
+
     return resiveLen;
 }
 

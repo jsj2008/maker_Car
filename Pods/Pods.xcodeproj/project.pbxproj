@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A1048F80D4E1B2401436E506E3958B4 /* ANDLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7D28FF5AB1D329E4678B6ECD665FC /* ANDLineChartView.m */; };
+		16614FA6EEE38FFEB6002CEA2FE4E4B5 /* ANDLineChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = B48252A245E99D71718534ED17FAF7F0 /* ANDLineChartView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1FC23A0206442B84D2348D8373C2FD93 /* ANDBackgroundChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = 365EFAF82F36A0A5C45FBD0149F8753F /* ANDBackgroundChartView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23DE96E95DB6D5E3A89C3787FB997203 /* ANDInternalLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116B52999F09948CB292438A4B9D020 /* ANDInternalLineChartView.m */; };
+		24C937433B441A5FD8E9DA58C2637BB3 /* ANDInternalLineChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A0C908A205BB0BA33632D6D7C15B36D /* ANDInternalLineChartView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		574AA7045C1578432B8918D49454CFAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		65D01F256D78E07559A9841F39A60977 /* Pods-cloud-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDF462EAE2A6912EC2A6E69C7D74425 /* Pods-cloud-dummy.m */; };
+		6DAB2AB4D5FA06001F8B0DED0948D49B /* ANDBackgroundChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D90E4ACBACE7D96EDF548268B2E864 /* ANDBackgroundChartView.m */; };
+		7E94F264A92E77E909FCAAAAED329D3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		806440E2B94E18CE4169D913A2A5F2FA /* ANDLineChartView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B791924A573B169AD4FA49538FF0946D /* ANDLineChartView-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EFEBB517B341AC7AE070B4BC0F3C2399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 069053F20A0FA279A0E0E108710F4B25;
+			remoteInfo = ANDLineChartView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		28A7D28FF5AB1D329E4678B6ECD665FC /* ANDLineChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ANDLineChartView.m; path = ANDLineChartView/ANDLineChartView.m; sourceTree = "<group>"; };
+		292915E5C1914575813A9C2248D0033F /* Pods-cloud-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cloud-acknowledgements.plist"; sourceTree = "<group>"; };
+		365EFAF82F36A0A5C45FBD0149F8753F /* ANDBackgroundChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANDBackgroundChartView.h; path = ANDLineChartView/ANDBackgroundChartView.h; sourceTree = "<group>"; };
+		3A0C908A205BB0BA33632D6D7C15B36D /* ANDInternalLineChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANDInternalLineChartView.h; path = ANDLineChartView/ANDInternalLineChartView.h; sourceTree = "<group>"; };
+		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		8116B52999F09948CB292438A4B9D020 /* ANDInternalLineChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ANDInternalLineChartView.m; path = ANDLineChartView/ANDInternalLineChartView.m; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A5CFD24E7212FBED3C204C428F1EAB69 /* ANDLineChartView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ANDLineChartView-prefix.pch"; sourceTree = "<group>"; };
+		A7404A4254C9647537C387C112F97400 /* Pods-cloud.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cloud.debug.xcconfig"; sourceTree = "<group>"; };
+		B48252A245E99D71718534ED17FAF7F0 /* ANDLineChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANDLineChartView.h; path = ANDLineChartView/ANDLineChartView.h; sourceTree = "<group>"; };
+		B791924A573B169AD4FA49538FF0946D /* ANDLineChartView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ANDLineChartView-dummy.m"; sourceTree = "<group>"; };
+		C2FAF1D608B65B3B318CABCF440B8395 /* libANDLineChartView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libANDLineChartView.a; path = libANDLineChartView.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8D90E4ACBACE7D96EDF548268B2E864 /* ANDBackgroundChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ANDBackgroundChartView.m; path = ANDLineChartView/ANDBackgroundChartView.m; sourceTree = "<group>"; };
+		CBD468A4E278D5AFF3F384D2B4A32223 /* Pods-cloud-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cloud-resources.sh"; sourceTree = "<group>"; };
+		CBDF462EAE2A6912EC2A6E69C7D74425 /* Pods-cloud-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-cloud-dummy.m"; sourceTree = "<group>"; };
+		D3D6080074CC5DF1D9F0D973F2A497A9 /* libPods-cloud.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-cloud.a"; path = "libPods-cloud.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2FBDA6ECEC3F8A3DCFB9AFBDD5C5A73 /* Pods-cloud.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cloud.release.xcconfig"; sourceTree = "<group>"; };
+		F271510ECF2C08E544FEB9BD52377702 /* Pods-cloud-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-cloud-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F3FA1A4729C9467D3BD3AC6AF435783F /* Pods-cloud-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cloud-frameworks.sh"; sourceTree = "<group>"; };
+		F89BBD9AA5D377701697D1A3D88CC9BF /* ANDLineChartView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ANDLineChartView.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE8F617C910ED7F129056969C72E0710 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E94F264A92E77E909FCAAAAED329D3B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD770E9DD50805348FC60645948F8559 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				574AA7045C1578432B8918D49454CFAF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		196DB6FF450EEA657A52E4DCE8BEE2F8 /* ANDLineChartView */ = {
+			isa = PBXGroup;
+			children = (
+				365EFAF82F36A0A5C45FBD0149F8753F /* ANDBackgroundChartView.h */,
+				C8D90E4ACBACE7D96EDF548268B2E864 /* ANDBackgroundChartView.m */,
+				3A0C908A205BB0BA33632D6D7C15B36D /* ANDInternalLineChartView.h */,
+				8116B52999F09948CB292438A4B9D020 /* ANDInternalLineChartView.m */,
+				B48252A245E99D71718534ED17FAF7F0 /* ANDLineChartView.h */,
+				28A7D28FF5AB1D329E4678B6ECD665FC /* ANDLineChartView.m */,
+				8F4F2D91598A6630D6F55F1EDE30A4A6 /* Support Files */,
+			);
+			name = ANDLineChartView;
+			path = ANDLineChartView;
+			sourceTree = "<group>";
+		};
+		29AB576D51DF6528BFF33DD09A7B1B0C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				196DB6FF450EEA657A52E4DCE8BEE2F8 /* ANDLineChartView */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4E1923988E395B602247A27406C84FBE /* Pods-cloud */ = {
+			isa = PBXGroup;
+			children = (
+				F271510ECF2C08E544FEB9BD52377702 /* Pods-cloud-acknowledgements.markdown */,
+				292915E5C1914575813A9C2248D0033F /* Pods-cloud-acknowledgements.plist */,
+				CBDF462EAE2A6912EC2A6E69C7D74425 /* Pods-cloud-dummy.m */,
+				F3FA1A4729C9467D3BD3AC6AF435783F /* Pods-cloud-frameworks.sh */,
+				CBD468A4E278D5AFF3F384D2B4A32223 /* Pods-cloud-resources.sh */,
+				A7404A4254C9647537C387C112F97400 /* Pods-cloud.debug.xcconfig */,
+				E2FBDA6ECEC3F8A3DCFB9AFBDD5C5A73 /* Pods-cloud.release.xcconfig */,
+			);
+			name = "Pods-cloud";
+			path = "Target Support Files/Pods-cloud";
+			sourceTree = "<group>";
+		};
+		6FB1F0931B7BD8181F131D385268B752 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2FAF1D608B65B3B318CABCF440B8395 /* libANDLineChartView.a */,
+				D3D6080074CC5DF1D9F0D973F2A497A9 /* libPods-cloud.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				29AB576D51DF6528BFF33DD09A7B1B0C /* Pods */,
+				6FB1F0931B7BD8181F131D385268B752 /* Products */,
+				A60A01790BB7FE6FA1F07379B2F5F8ED /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8F4F2D91598A6630D6F55F1EDE30A4A6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F89BBD9AA5D377701697D1A3D88CC9BF /* ANDLineChartView.xcconfig */,
+				B791924A573B169AD4FA49538FF0946D /* ANDLineChartView-dummy.m */,
+				A5CFD24E7212FBED3C204C428F1EAB69 /* ANDLineChartView-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ANDLineChartView";
+			sourceTree = "<group>";
+		};
+		A60A01790BB7FE6FA1F07379B2F5F8ED /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E1923988E395B602247A27406C84FBE /* Pods-cloud */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		399AEA1C29B1A0DFA1D208697FBF9F4A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FC23A0206442B84D2348D8373C2FD93 /* ANDBackgroundChartView.h in Headers */,
+				24C937433B441A5FD8E9DA58C2637BB3 /* ANDInternalLineChartView.h in Headers */,
+				16614FA6EEE38FFEB6002CEA2FE4E4B5 /* ANDLineChartView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		069053F20A0FA279A0E0E108710F4B25 /* ANDLineChartView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 994A3948C6F5CB2537D73E2842E48116 /* Build configuration list for PBXNativeTarget "ANDLineChartView" */;
+			buildPhases = (
+				A7DBECC04593461A12C9919EC6085D5A /* Sources */,
+				DD770E9DD50805348FC60645948F8559 /* Frameworks */,
+				399AEA1C29B1A0DFA1D208697FBF9F4A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANDLineChartView;
+			productName = ANDLineChartView;
+			productReference = C2FAF1D608B65B3B318CABCF440B8395 /* libANDLineChartView.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B0A1C15258062A14D90EC98E1BEE3652 /* Pods-cloud */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95AC059781CC155579368B9714C370A1 /* Build configuration list for PBXNativeTarget "Pods-cloud" */;
+			buildPhases = (
+				30ECA61E96CFC97A8782D5528C01882B /* Sources */,
+				AE8F617C910ED7F129056969C72E0710 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF7D67F8988C730C2EE2BFC61B0BC68C /* PBXTargetDependency */,
+			);
+			name = "Pods-cloud";
+			productName = "Pods-cloud";
+			productReference = D3D6080074CC5DF1D9F0D973F2A497A9 /* libPods-cloud.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 6FB1F0931B7BD8181F131D385268B752 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				069053F20A0FA279A0E0E108710F4B25 /* ANDLineChartView */,
+				B0A1C15258062A14D90EC98E1BEE3652 /* Pods-cloud */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		30ECA61E96CFC97A8782D5528C01882B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D01F256D78E07559A9841F39A60977 /* Pods-cloud-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7DBECC04593461A12C9919EC6085D5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DAB2AB4D5FA06001F8B0DED0948D49B /* ANDBackgroundChartView.m in Sources */,
+				23DE96E95DB6D5E3A89C3787FB997203 /* ANDInternalLineChartView.m in Sources */,
+				806440E2B94E18CE4169D913A2A5F2FA /* ANDLineChartView-dummy.m in Sources */,
+				0A1048F80D4E1B2401436E506E3958B4 /* ANDLineChartView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF7D67F8988C730C2EE2BFC61B0BC68C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANDLineChartView;
+			target = 069053F20A0FA279A0E0E108710F4B25 /* ANDLineChartView */;
+			targetProxy = EFEBB517B341AC7AE070B4BC0F3C2399 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5FD3C308E1FF2B6C127426676CBBBEF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BC964E5A03B37AD63A0C3163280AD597 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		BD35CC2621F987463368F11DC54ACC30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F89BBD9AA5D377701697D1A3D88CC9BF /* ANDLineChartView.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ANDLineChartView/ANDLineChartView-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D0788DE643A054A7FC33E830B714788A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F89BBD9AA5D377701697D1A3D88CC9BF /* ANDLineChartView.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ANDLineChartView/ANDLineChartView-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		D85E6B8FB8DC03BEC1B22DA6E141E805 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7404A4254C9647537C387C112F97400 /* Pods-cloud.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EA6A11FD8C4D2A82372557F0A823341F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2FBDA6ECEC3F8A3DCFB9AFBDD5C5A73 /* Pods-cloud.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC964E5A03B37AD63A0C3163280AD597 /* Debug */,
+				5FD3C308E1FF2B6C127426676CBBBEF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95AC059781CC155579368B9714C370A1 /* Build configuration list for PBXNativeTarget "Pods-cloud" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D85E6B8FB8DC03BEC1B22DA6E141E805 /* Debug */,
+				EA6A11FD8C4D2A82372557F0A823341F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		994A3948C6F5CB2537D73E2842E48116 /* Build configuration list for PBXNativeTarget "ANDLineChartView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD35CC2621F987463368F11DC54ACC30 /* Debug */,
+				D0788DE643A054A7FC33E830B714788A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

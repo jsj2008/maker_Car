@@ -1,0 +1,12 @@
+PODS:
+  - ANDLineChartView (0.2.2)
+
+DEPENDENCIES:
+  - ANDLineChartView
+
+SPEC CHECKSUMS:
+  ANDLineChartView: fc9b4685a444eeb16ea373691962dc71e60dccd1
+
+PODFILE CHECKSUM: cbea7dee5b5393ea5afdb89ad5403869111d10bb
+
+COCOAPODS: 1.2.1

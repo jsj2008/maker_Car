@@ -10,5 +10,5 @@
 
 @interface MessageViewController : UIViewController
 @property(nonatomic,strong)NSString *physicalDeviceId;
-
+@property(nonatomic,strong)NSString *deviceid;
 @end
