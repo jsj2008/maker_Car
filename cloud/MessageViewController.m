@@ -121,7 +121,8 @@
     stp.leftButtonText = @"-";
     stp.rightButtonText = @"+";
     stp.maximumValue = 3;
-    stp.value = 0;
+    stp.value = 1;
+    stp.minimumValue = 1;
     [stp addTarget:self action:@selector(StepChange:) forControlEvents:UIControlEventValueChanged];
     [self.thermo addSubview:stp];
     
@@ -169,7 +170,8 @@
     stp2.leftButtonText = @"-";
     stp2.rightButtonText = @"+";
     stp2.maximumValue = 3;
-    stp2.value = 2;
+    stp2.value = 1;
+    stp2.minimumValue = 1;
     [stp2 addTarget:self action:@selector(StepChange:) forControlEvents:UIControlEventValueChanged];
     [self.distance addSubview:stp2];
     
@@ -230,7 +232,6 @@
         
         NSData* decodeData = [[NSData alloc] initWithBase64EncodedString:payArr[0] options:0];
         
-        NSLog(@"接受的数据长度 %ld",decodeData.length);
         if (decodeData.length == 5) {
             if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c2"]) {
                 NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10];
@@ -239,31 +240,46 @@
                 [self.element addObject:@(flo)];
                 [self.line reloadData];
 
-                self.line.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width + 20, 0);
             }else if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c3"]){
-                NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(4, 4)] UTF8String], 0, 16)/10];
+                NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/100];
                 CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/100;
                 self.currentDistance.text = temp;
                 [self.distances addObject:@(flo)];
                 [self.distancechart reloadData];
-                self.distancechart.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width, 0);
             }
         }else if (decodeData.length == 10){
-            NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10];
-            CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10;
-            self.currentTemp.text = temp;
-            [self.element addObject:@(flo)];
+            
+            NSString *decodestr = [self convertDataToHexStr:decodeData];
+            
+            
+            NSString *thermo = [decodestr substringWithRange:NSMakeRange(4, 4)];
+            
+            
+            NSString *distance = [decodestr substringWithRange:NSMakeRange(14, 4)];
+            
+            unsigned long distancedecimal = strtoul([distance UTF8String], 0, 16);
+            
+            unsigned long thermodecimal = strtoul([thermo UTF8String], 0, 16);
+      
+            
+            [self.element addObject:@((float)thermodecimal/10)];
+            
+            [self.distances addObject:@((float)distancedecimal/100)];
+            
+            
+            
+            NSString *ct = [NSString stringWithFormat:@"%g",(float)thermodecimal/10];
+            
+            NSString *cd = [NSString stringWithFormat:@"%g",(float)distancedecimal/100];
+            
+            self.currentTemp.text = ct;
+            
+            self.currentDistance.text = cd;
+            
             [self.line reloadData];
             
-            self.line.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width + 20, 0);
-            
-            NSString *temp1 = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(16, 4)] UTF8String], 0, 16)/10];
-            CGFloat flo1 = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(16, 4)] UTF8String], 0, 16)/10;
-            self.currentDistance.text = temp1;
-            [self.distances addObject:@(flo1)];
             [self.distancechart reloadData];
             
-            self.distancechart.scrollView.contentOffset = CGPointMake(self.line.scrollView.contentSize.width - self.line.frame.size.width + 20, 0);
         }
     }];
     
@@ -293,7 +309,7 @@
         if (sender.isOn == true) {
             NSLog(@"打开距离上传");
             [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"80"];
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"02"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"01"];
             [self SenMesage:self.currentMsg];
         }else{
             NSLog(@"关闭距离上传");
@@ -324,7 +340,8 @@
 
 #pragma mark - StepChange
 -(void)StepChange:(GMStepper *)step{
-    [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:[NSString stringWithFormat:@"%f",step.value]];
+    NSString *stepstr = [NSString stringWithFormat:@"0%g",step.value];
+    [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:stepstr];
     [self SenMesage:self.currentMsg];
 }
 
@@ -400,6 +417,29 @@
     }];
     
 }
+
+- (NSString *)convertDataToHexStr:(NSData *)data {
+    if (!data || [data length] == 0) {
+        return @"";
+    }
+    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[data length]];
+    
+    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
+        unsigned char *dataBytes = (unsigned char*)bytes;
+        for (NSInteger i = 0; i < byteRange.length; i++) {
+            NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
+            if ([hexStr length] == 2) {
+                [string appendString:hexStr];
+            } else {
+                [string appendFormat:@"0%@", hexStr];
+            }
+        }
+    }];
+    
+    return string;
+}
+
+
 - (NSData *)convertHexStrToData:(NSString *)str {
     if (!str || [str length] == 0) {
         return nil;
