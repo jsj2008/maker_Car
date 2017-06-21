@@ -14,6 +14,8 @@
 #import "ANDLineChartView.h"
 #import "ACCustomDataManager.h"
 #import "ACObject.h"
+
+
 #define kScreenWidth \
 ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? [UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale : [UIScreen mainScreen].bounds.size.width)
 #define kScreenHeight \
