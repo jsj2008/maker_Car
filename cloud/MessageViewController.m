@@ -232,6 +232,8 @@
         
         NSData* decodeData = [[NSData alloc] initWithBase64EncodedString:payArr[0] options:0];
         
+        NSLog(@"Decodelength = %ld",decodeData.length);
+        
         if (decodeData.length == 5) {
             if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c2"]) {
                 NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10];
@@ -341,8 +343,16 @@
 #pragma mark - StepChange
 -(void)StepChange:(GMStepper *)step{
     NSString *stepstr = [NSString stringWithFormat:@"0%g",step.value];
-    [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:stepstr];
-    [self SenMesage:self.currentMsg];
+    if (step.tag == 1000001) {
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:stepstr];
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"f0"];
+        [self SenMesage:self.currentMsg];
+        
+    }else{
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"80"];
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:stepstr];
+        [self SenMesage:self.currentMsg];
+    }
 }
 
 #pragma AndLineChart Delegate and Datasource
