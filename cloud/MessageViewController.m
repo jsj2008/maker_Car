@@ -16,11 +16,11 @@
 #import "ACObject.h"
 
 
+
 #define kScreenWidth \
 ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? [UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale : [UIScreen mainScreen].bounds.size.width)
 #define kScreenHeight \
 ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? [UIScreen mainScreen].nativeBounds.size.height/[UIScreen mainScreen].nativeScale : [UIScreen mainScreen].bounds.size.height)
-#define kScreenSize \
 
 #define RGB(r,g,b)  [UIColor colorWithRed:r green:g blue:b alpha:1]
 
@@ -46,13 +46,24 @@
 @property(nonatomic,strong) ANDLineChartView *line;
 @property(nonatomic,strong) ANDLineChartView *distancechart;
 
+#pragma mark - currentStepCycle
+@property(nonatomic,strong)NSMutableString *currentThermoCycle;
+@property(nonatomic,strong)NSMutableString *currentDistanceCycle;
 @end
 
 @implementation MessageViewController
 
 - (void)viewDidLoad {
     
-    NSLog(@"DeviceID  =  %@",self.deviceid);
+    NSString *back1 = @"660280808080000f0099";
+    [self SenMesage:back1];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *back2 = @"66028080808000080099";
+        [self SenMesage:back2];
+    });
+    
+    
     
     //Configureation Background Image
     UIImageView *img = [[UIImageView alloc]initWithFrame:self.view.frame];
@@ -61,17 +72,17 @@
     
     self.MainScrollview = [[UIScrollView alloc]initWithFrame:self.view.frame];
     self.MainScrollview.backgroundColor = [UIColor clearColor];
-    self.MainScrollview.contentSize = CGSizeMake(0, 1190);
+    self.MainScrollview.contentSize = CGSizeMake(0, 1230);
     [self.view addSubview:self.MainScrollview];
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
     //Configuration Thermo View
-    self.car = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10, 30, self.view.frame.size.width - 20, 250)];
+    self.car = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10, 30, self.view.frame.size.width - 20, 300)];
     self.car.effect = blur;
     [self.MainScrollview addSubview:self.car];
-    NSArray *title = @[@"前进",@"后退",@"停止"];
-    for (int i = 0; i<3; i++) {
+    NSArray *title = @[@"前进",@"后退",@"停止",@"左转",@"右转"];
+    for (int i = 0; i<5; i++) {
         ZFRippleButton *rippe = [[ZFRippleButton alloc]initWithFrame:CGRectMake(10, 20 + i * 50, 120, 40)];
         rippe.backgroundColor = [UIColor clearColor];
         rippe.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -85,15 +96,14 @@
     
     StepSlider *sl = [[StepSlider alloc]initWithFrame:CGRectMake(160, 30, 180, 20)];
     sl.maxCount = 3;
-    sl.index = 1;
-    [sl addTarget:self action:@selector(GearChange:) forControlEvents:UIControlEventTouchUpInside];
+    sl.index = 0;
+    [sl addTarget:self action:@selector(GearChange:) forControlEvents:UIControlEventValueChanged];
     sl.labels = @[@"第一档",@"第二档",@"第三档"];
     sl.labelColor = [UIColor whiteColor];
     [self.car addSubview:sl];
    
-    
     //Configuration ThermoView
-    self.thermo = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10, 290, kScreenWidth - 20, 330)];
+    self.thermo = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10, 340, kScreenWidth - 20, 330)];
     self.thermo.effect = blur;
     [self.MainScrollview addSubview:self.thermo];
     
@@ -120,17 +130,17 @@
     stp.layer.borderColor = [UIColor whiteColor].CGColor;
     stp.leftButtonText = @"-";
     stp.rightButtonText = @"+";
-    stp.maximumValue = 3;
+    stp.maximumValue = 9;
     stp.value = 1;
     stp.minimumValue = 1;
+     self.currentThermoCycle = [NSMutableString stringWithString:[NSString stringWithFormat:@"0%d",(int)stp.value]];
     [stp addTarget:self action:@selector(StepChange:) forControlEvents:UIControlEventValueChanged];
     [self.thermo addSubview:stp];
     
     self.currentTemp = [[UILabel alloc]initWithFrame:CGRectMake(self.thermo.frame.size.width - 120, 20, 100, 100)];
     self.currentTemp.textColor = [UIColor whiteColor];
-    self.currentTemp.font = [UIFont systemFontOfSize:35];
+    self.currentTemp.font = [UIFont systemFontOfSize:30];
     
-    self.currentTemp.textAlignment = NSTextAlignmentCenter;
     [self.thermo addSubview:self.currentTemp];
     
     _line = [[ANDLineChartView alloc]initWithFrame:CGRectMake(0, 125, self.thermo.frame.size.width, 200)];
@@ -140,7 +150,7 @@
     [self.thermo addSubview:_line];
     self.element = [NSMutableArray array];
     
-    self.distance = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10, 630, kScreenWidth - 20, 330)];
+    self.distance = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10, 680, kScreenWidth - 20, 330)];
     self.distance.effect = blur;
     [self.MainScrollview addSubview:self.distance];
     
@@ -169,9 +179,10 @@
     stp2.layer.borderColor = [UIColor whiteColor].CGColor;
     stp2.leftButtonText = @"-";
     stp2.rightButtonText = @"+";
-    stp2.maximumValue = 3;
+    stp2.maximumValue = 9;
     stp2.value = 1;
     stp2.minimumValue = 1;
+    self.currentDistanceCycle = [NSMutableString stringWithString:[NSString stringWithFormat:@"0%d",(int)stp2.value]];
     [stp2 addTarget:self action:@selector(StepChange:) forControlEvents:UIControlEventValueChanged];
     [self.distance addSubview:stp2];
     
@@ -184,15 +195,13 @@
     self.distances = [NSMutableArray array];
     
     
-    self.currentDistance = [[UILabel alloc]initWithFrame:CGRectMake(self.distance.frame.size.width - 120, 20, 100, 100)];
+    self.currentDistance = [[UILabel alloc]initWithFrame:CGRectMake(self.distance.frame.size.width - 120, 20, 120, 100)];
     self.currentDistance.textColor = [UIColor whiteColor];
-    self.currentDistance.font = [UIFont systemFontOfSize:35];
-    
-    self.currentDistance.textAlignment = NSTextAlignmentCenter;
+    self.currentDistance.font = [UIFont systemFontOfSize:30];
     [self.distance addSubview:self.currentDistance];
    
     
-    self.LED = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10,970, kScreenWidth - 20, 200)];
+    self.LED = [[UIVisualEffectView alloc]initWithFrame:CGRectMake(10,1020, kScreenWidth - 20, 200)];
     self.LED.effect = blur;
     [self.MainScrollview addSubview:self.LED];
     NSArray *titl = @[@"LED1点亮",@"LED2点亮"];
@@ -217,7 +226,7 @@
     [self.LED addSubview:led2];
     
     
-    NSMutableString *defualt = [NSMutableString stringWithString:@"660180808080000099"];
+    NSMutableString *defualt = [NSMutableString stringWithString:@"66028080808000000099"];
     [self SenMesage:defualt];
     self.currentMsg = defualt;
     
@@ -236,7 +245,7 @@
         
         if (decodeData.length == 5) {
             if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c2"]) {
-                NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10];
+                NSString *temp = [[NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10] stringByAppendingString:@"℃"];
                 CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/10;
                 self.currentTemp.text = temp;
                 [self.element addObject:@(flo)];
@@ -251,7 +260,7 @@
                 
                 unsigned long distancedecimal = strtoul([distance1 UTF8String], 0, 16);
                 [self.distances addObject:@((float)distancedecimal/10)];
-                self.currentDistance.text = [NSString stringWithFormat:@"%g",(float)distancedecimal/10];
+                self.currentDistance.text = [[NSString stringWithFormat:@"%g",(float)distancedecimal/10] stringByAppendingString:@"cm"];
                 [self.distancechart reloadData];
                 
                 self.distancechart.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
@@ -281,9 +290,9 @@
             
             
             
-            NSString *ct = [NSString stringWithFormat:@"%g",(float)thermodecimal/10];
+            NSString *ct = [[NSString stringWithFormat:@"%g",(float)thermodecimal/10] stringByAppendingString:@"℃"];
             
-            NSString *cd = [NSString stringWithFormat:@"%g",(float)distancedecimal/10];
+            NSString *cd = [[NSString stringWithFormat:@"%g",(float)distancedecimal/10] stringByAppendingString:@"cm"];
             
             self.currentTemp.text = ct;
             
@@ -293,9 +302,8 @@
             
             [self.distancechart reloadData];
             
-            self.line.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
-            self.distancechart.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
             
+           
             
         }
     }];
@@ -304,8 +312,9 @@
 }
 #pragma mark - gearChange Method
 -(void)GearChange:(StepSlider *)sender{
-    NSString *gear = [NSString stringWithFormat:@"0%ld",sender.index];
+    NSString *gear = [NSString stringWithFormat:@"0%ld",sender.index+1];
     [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:gear];
+    NSLog(@"CurrentMsg = %@",self.currentMsg);
     [self SenMesage:self.currentMsg];
 }
 
@@ -314,42 +323,42 @@
 -(void)SwitchUnitChange:(CustomSwitch *)sender{
     if (sender.tag == 100001) {
         if (sender.isOn == true) {
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"f0"];
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"01"];
+         
+
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"f0"];
+            
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(16, 2) withString:self.currentThermoCycle];
             [self SenMesage:self.currentMsg];
         }else{
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"0f"];
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"00"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"0f"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(16, 2) withString:@"00"];
             [self SenMesage:self.currentMsg];
         }
     }else if (sender.tag == 100002){
         if (sender.isOn == true) {
-            NSLog(@"打开距离上传");
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"80"];
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"01"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"80"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(16, 2) withString:self.currentDistanceCycle];
             [self SenMesage:self.currentMsg];
         }else{
-            NSLog(@"关闭距离上传");
-
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"08"];
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"00"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"08"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(16, 2) withString:@"00"];
             [self SenMesage:self.currentMsg];
         }
 
     }else if (sender.tag == 100003){
         if (sender.isOn == true) {
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"0a"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"0a"];
             [self SenMesage:self.currentMsg];
         }else{
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"a0"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"a0"];
             [self SenMesage:self.currentMsg];
         }
     }else if (sender.tag == 100004){
         if (sender.isOn == true) {
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"1a"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"1a"];
             [self SenMesage:self.currentMsg];
         }else{
-            [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"a1"];
+            [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:@"a1"];
             [self SenMesage:self.currentMsg];
         }
     }
@@ -357,20 +366,15 @@
 
 #pragma mark - StepChange
 -(void)StepChange:(GMStepper *)step{
-    NSString *stepstr = [NSString stringWithFormat:@"0%g",step.value];
     if (step.tag == 1000001) {
-        [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:stepstr];
-        [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"f0"];
-        [self SenMesage:self.currentMsg];
-        
+        self.currentThermoCycle = [NSMutableString stringWithFormat:@"0%d",(int)step.value];
     }else{
-        [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"80"];
-        [self.currentMsg replaceCharactersInRange:NSMakeRange(14, 2) withString:stepstr];
-        [self SenMesage:self.currentMsg];
+        self.currentDistanceCycle = [NSMutableString stringWithFormat:@"0%d",(int)step.value];
     }
+    
 }
 
-#pragma AndLineChart Delegate and Datasource
+#pragma mark - AndLineChart Delegate and Datasource
 -(NSUInteger)numberOfElementsInChartView:(ANDLineChartView *)chartView{
     if (chartView == self.line) {
         return _element.count;
@@ -410,6 +414,8 @@
     return 30;
 }
 
+#pragma mark - communicate Code
+
 -(void)Getmeesage:(UIButton *)sender{
     if (sender.tag == 10000) {
         [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"ffffffff"];
@@ -421,14 +427,27 @@
         [self.currentMsg replaceCharactersInRange:NSMakeRange(12, 2) withString:@"01"];
 
         [self SenMesage:self.currentMsg];
-    }else{
+    }else if(sender.tag == 10002){
         [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"80808080"];
 
         [self SenMesage:self.currentMsg];
 
+    }else if (sender.tag == 10003){
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"80ff8080"];
+        [self SenMesage:self.currentMsg];
+    }else if(sender.tag == 10004){
+        [self.currentMsg replaceCharactersInRange:NSMakeRange(4, 8) withString:@"ff808080"];
+        [self SenMesage:self.currentMsg];
     }
 
 }
+
+- (void)comeHome:(UIApplication *)application {
+    NSLog(@"进入后台");
+}
+
+
+
 -(void)SenMesage:(NSString *)packge{
     NSData *data = [self convertHexStrToData:packge];
     ACDeviceMsg *msg = [[ACDeviceMsg alloc]initWithCode:89 binaryData:data];
@@ -466,6 +485,11 @@
     
     return string;
 }
+
+
+
+
+
 
 
 - (NSData *)convertHexStrToData:(NSString *)str {
