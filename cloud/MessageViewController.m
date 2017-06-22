@@ -241,13 +241,21 @@
                 self.currentTemp.text = temp;
                 [self.element addObject:@(flo)];
                 [self.line reloadData];
-
+                self.line.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
+                
             }else if ([[decodeData.description substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"c3"]){
-                NSString *temp = [NSString stringWithFormat:@"%g",(float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/100];
-                CGFloat flo = (float)strtoul([[decodeData.description substringWithRange:NSMakeRange(5, 4)] UTF8String], 0, 16)/100;
-                self.currentDistance.text = temp;
-                [self.distances addObject:@(flo)];
+
+                
+                NSString *decodestr = [self convertDataToHexStr:decodeData];
+                NSString *distance1 = [decodestr substringWithRange:NSMakeRange(4, 4)];
+                
+                unsigned long distancedecimal = strtoul([distance1 UTF8String], 0, 16);
+                [self.distances addObject:@((float)distancedecimal/10)];
+                self.currentDistance.text = [NSString stringWithFormat:@"%g",(float)distancedecimal/10];
                 [self.distancechart reloadData];
+                
+                self.distancechart.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
+                
             }
         }else if (decodeData.length == 10){
             
@@ -257,22 +265,25 @@
             NSString *thermo = [decodestr substringWithRange:NSMakeRange(4, 4)];
             
             
-            NSString *distance = [decodestr substringWithRange:NSMakeRange(14, 4)];
+            NSString *distance1 = [decodestr substringWithRange:NSMakeRange(14, 4)];
             
-            unsigned long distancedecimal = strtoul([distance UTF8String], 0, 16);
+            unsigned long distancedecimal = strtoul([distance1 UTF8String], 0, 16);
+           
+            
+            
             
             unsigned long thermodecimal = strtoul([thermo UTF8String], 0, 16);
       
             
             [self.element addObject:@((float)thermodecimal/10)];
             
-            [self.distances addObject:@((float)distancedecimal/100)];
+            [self.distances addObject:@((float)distancedecimal/10)];
             
             
             
             NSString *ct = [NSString stringWithFormat:@"%g",(float)thermodecimal/10];
             
-            NSString *cd = [NSString stringWithFormat:@"%g",(float)distancedecimal/100];
+            NSString *cd = [NSString stringWithFormat:@"%g",(float)distancedecimal/10];
             
             self.currentTemp.text = ct;
             
@@ -281,6 +292,10 @@
             [self.line reloadData];
             
             [self.distancechart reloadData];
+            
+            self.line.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
+            self.distancechart.scrollView.contentOffset = CGPointMake(self.distancechart.scrollView.contentSize.width - self.distancechart.frame.size.width + 40, 0);
+            
             
         }
     }];
@@ -368,6 +383,9 @@
 }
 
 -(CGFloat)maxValueForGridIntervalInChartView:(ANDLineChartView *)chartView{
+    if (chartView == self.distancechart) {
+        return 100;
+    }
     return 40;
 }
 
@@ -389,7 +407,7 @@
 }
 
 - (CGFloat)chartView:(ANDLineChartView *)graphView spacingForElementAtRow:(NSUInteger)row{
-    return (row == 0) ? 60.0 : 30.0;
+    return 30;
 }
 
 -(void)Getmeesage:(UIButton *)sender{
