@@ -82,7 +82,7 @@
     self.car.effect = blur;
     [self.MainScrollview addSubview:self.car];
     NSArray *title = @[@"前进",@"后退",@"停止",@"左转",@"右转"];
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<3; i++) {
         ZFRippleButton *rippe = [[ZFRippleButton alloc]initWithFrame:CGRectMake(10, 20 + i * 50, 120, 40)];
         rippe.backgroundColor = [UIColor clearColor];
         rippe.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -94,7 +94,18 @@
         [self.car addSubview:rippe];
     }
     
-    StepSlider *sl = [[StepSlider alloc]initWithFrame:CGRectMake(160, 30, 180, 20)];
+    NSArray *imgs = @[[UIImage imageNamed:@"左"],[UIImage imageNamed:@"右"]];
+    for (int i = 0; i<2; i++) {
+        ZFRippleButton *btn = [[ZFRippleButton alloc]initWithFrame:CGRectMake(170 + i *85, 120, 60, 40)];
+        btn.tag = 10003+i;
+        [btn setImage:imgs[i] forState:0];
+        [btn addTarget:self action:@selector(Getmeesage:) forControlEvents:UIControlEventTouchUpInside];
+        btn.titleLabel.textColor = [UIColor whiteColor];
+        [self.car addSubview:btn];
+    }
+    
+    
+    StepSlider *sl = [[StepSlider alloc]initWithFrame:CGRectMake(150, 30, 180, 20)];
     sl.maxCount = 3;
     sl.index = 0;
     [sl addTarget:self action:@selector(GearChange:) forControlEvents:UIControlEventValueChanged];
@@ -290,12 +301,12 @@
             
             
             
+            
             NSString *ct = [[NSString stringWithFormat:@"%g",(float)thermodecimal/10] stringByAppendingString:@"℃"];
             
             NSString *cd = [[NSString stringWithFormat:@"%g",(float)distancedecimal/10] stringByAppendingString:@"cm"];
             
             self.currentTemp.text = ct;
-            
             self.currentDistance.text = cd;
             
             [self.line reloadData];
@@ -485,12 +496,6 @@
     
     return string;
 }
-
-
-
-
-
-
 
 - (NSData *)convertHexStrToData:(NSString *)str {
     if (!str || [str length] == 0) {
